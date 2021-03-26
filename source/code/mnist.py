@@ -47,7 +47,7 @@ def _get_train_data_loader(batch_size, training_dir, is_distributed, **kwargs):
 
     logger.info("Get train data loader")
     dataset = datasets.MNIST(
-        training_dir,
+        f'{training_dir}/MNIST',
         download=False,
         train=True,
         transform=transforms.Compose(

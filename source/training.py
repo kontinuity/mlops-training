@@ -27,7 +27,7 @@ thetarfile.extractall('/data')
 
 # Getting the data
 datasets.MNIST(
-    "/data",
+    "/data/MNIST",
     download=False,
     transform=transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
