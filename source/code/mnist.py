@@ -40,7 +40,7 @@ class Net(nn.Module):
 
 def _get_train_data_loader(batch_size, training_dir, is_distributed, **kwargs):
 
-    thetarfile = "www.di.ens.fr/~lelarge/MNIST.tar.gz"
+    thetarfile = "https://www.di.ens.fr/~lelarge/MNIST.tar.gz"
     ftpstream = urllib.request.urlopen(thetarfile)
     thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
     thetarfile.extractall(training_dir)

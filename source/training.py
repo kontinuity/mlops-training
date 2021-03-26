@@ -20,7 +20,7 @@ commit_id = commit_id[0:7]
 timestamp = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
 job_name = stack_name + "-" + commit_id + "-" + timestamp
 
-thetarfile = "www.di.ens.fr/~lelarge/MNIST.tar.gz"
+thetarfile = "https://www.di.ens.fr/~lelarge/MNIST.tar.gz"
 ftpstream = urllib.request.urlopen(thetarfile)
 thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
 thetarfile.extractall('data')
