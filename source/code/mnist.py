@@ -1,3 +1,6 @@
+!wget www.di.ens.fr/~lelarge/MNIST.tar.gz
+!tar -zxvf MNIST.tar.gz
+
 import argparse
 import json
 import logging
@@ -64,8 +67,9 @@ def _get_test_data_loader(test_batch_size, training_dir, **kwargs):
     logger.info("Get test data loader")
     return torch.utils.data.DataLoader(
         datasets.MNIST(
-            training_dir,
-            train=False,
+            f"./{training_dir}",
+            download=False,
+            train=True,
             transform=transforms.Compose(
                 [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
             ),
