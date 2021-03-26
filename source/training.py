@@ -1,6 +1,5 @@
-!wget www.di.ens.fr/~lelarge/MNIST.tar.gz
-!tar -zxvf MNIST.tar.gz
-
+import urllib.request
+import tarfile
 import time
 import sys
 import sagemaker
@@ -21,9 +20,14 @@ commit_id = commit_id[0:7]
 timestamp = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
 job_name = stack_name + "-" + commit_id + "-" + timestamp
 
+thetarfile = "www.di.ens.fr/~lelarge/MNIST.tar.gz"
+ftpstream = urllib.request.urlopen(thetarfile)
+thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
+thetarfile.extractall('data')
+
 # Getting the data
 datasets.MNIST(
-    f"./data",
+    "data",
     download=False,
     transform=transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]

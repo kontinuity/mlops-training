@@ -1,7 +1,5 @@
-!wget www.di.ens.fr/~lelarge/MNIST.tar.gz
-!tar -zxvf MNIST.tar.gz
-
-
+import urllib.request
+import tarfile
 import argparse
 import json
 import logging
@@ -19,7 +17,6 @@ from torchvision import datasets, transforms
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(sys.stdout))
-
 
 # Based on https://github.com/pytorch/examples/blob/master/mnist/main.py
 class Net(nn.Module):
@@ -42,9 +39,15 @@ class Net(nn.Module):
 
 
 def _get_train_data_loader(batch_size, training_dir, is_distributed, **kwargs):
+
+    thetarfile = "www.di.ens.fr/~lelarge/MNIST.tar.gz"
+    ftpstream = urllib.request.urlopen(thetarfile)
+    thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
+    thetarfile.extractall(training_dir)
+
     logger.info("Get train data loader")
     dataset = datasets.MNIST(
-        f"./{training_dir}",
+        training_dir,
         download=False,
         train=True,
         transform=transforms.Compose(
