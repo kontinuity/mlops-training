@@ -1,4 +1,5 @@
 import urllib.request
+import ssl
 import tarfile
 import time
 import sys
@@ -21,7 +22,7 @@ timestamp = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
 job_name = stack_name + "-" + commit_id + "-" + timestamp
 
 thetarfile = "https://www.di.ens.fr/~lelarge/MNIST.tar.gz"
-ftpstream = urllib.request.urlopen(thetarfile)
+ftpstream = urllib.request.urlopen(thetarfile, context=ssl._create_unverified_context())
 thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
 thetarfile.extractall('/tmp/data')
 
