@@ -20,14 +20,14 @@ commit_id = commit_id[0:7]
 timestamp = time.strftime("%Y-%m-%d-%H-%M-%S", time.gmtime())
 job_name = stack_name + "-" + commit_id + "-" + timestamp
 
-thetarfile = "https://raw.githubusercontent.com/zalandoresearch/fashion-mnist/master/data/fashion/train-images-idx3-ubyte.gz"
+thetarfile = "https://www.di.ens.fr/~lelarge/MNIST.tar.gz"
 ftpstream = urllib.request.urlopen(thetarfile)
 thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
-thetarfile.extractall('/data')
+thetarfile.extractall('/tmp/data')
 
 # Getting the data
 datasets.MNIST(
-    "/data/MNIST",
+    "/tmp/data/MNIST",
     download=False,
     transform=transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
@@ -36,7 +36,7 @@ datasets.MNIST(
 
 # Uploading the data to S3
 inputs = sagemaker_session.upload_data(
-    path="/data", bucket=bucket, key_prefix=prefix + "/MNIST"
+    path="/tmp/data", bucket=bucket, key_prefix=prefix + "/MNIST"
 )
 print(f"input spec (in this case, just an S3 path): {inputs}")
 
