@@ -23,11 +23,11 @@ job_name = stack_name + "-" + commit_id + "-" + timestamp
 thetarfile = "https://www.di.ens.fr/~lelarge/MNIST.tar.gz"
 ftpstream = urllib.request.urlopen(thetarfile)
 thetarfile = tarfile.open(fileobj=ftpstream, mode="r|gz")
-thetarfile.extractall('data')
+thetarfile.extractall('/data')
 
 # Getting the data
 datasets.MNIST(
-    "data",
+    "/data",
     download=False,
     transform=transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
